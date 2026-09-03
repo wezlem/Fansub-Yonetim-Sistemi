@@ -20,7 +20,7 @@ function buildEpisodeEmbed(animeInfo, season, episode) {
     .setColor(0x2f5d9f) // lacivert-mavi arası ton
     .setTitle(animeInfo.title)
     .setDescription(`${season}. Sezon ${episode}. Bölüm Yayında! <:emo3:1542999555241418792>\n-# -Butonlardan sitelere erişebilirsiniz.`)
-    .setFooter({ text: 'Umisubs' })
+    .setFooter({ text: 'wezlem' })
     .setTimestamp();
 
   if (animeInfo.image) {

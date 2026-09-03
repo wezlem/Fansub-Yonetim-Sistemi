@@ -1,7 +1,7 @@
 {
-  "name": "umisubs-bot",
+  "name": "wezlem",
   "version": "1.0.0",
-  "description": "Umisubs Discord bildirim botu",
+  "description": "wezlem fansub yonetim sistemi",
   "main": "index.js",
   "type": "commonjs",
   "scripts": {
