@@ -27,12 +27,18 @@ async function subsPleaseSonBolumleriGetir() {
 async function kontrolEt(client) {
   let sonBolumler;
 
+  console.log(`[bolumTakip] Kontrol başladı: ${new Date().toLocaleString('tr-TR')}`);
+
   try {
     sonBolumler = await subsPleaseSonBolumleriGetir();
   } catch (hata) {
     console.error('SubsPlease kontrolünde hata:', hata);
     return;
   }
+
+  console.log(`[bolumTakip] ${sonBolumler.length} bölüm kaydı çekildi, ekiple eşleşenler kontrol ediliyor...`);
+
+  let yeniGorevSayisi = 0;
 
   for (const { animeAdi, bolum, magnet, sayfa } of sonBolumler) {
     const ekip = ekipGetir(animeAdi);
@@ -44,6 +50,8 @@ async function kontrolEt(client) {
     if (gorevVarMi(animeAdi, bolum)) continue;
 
     yeniGorevOlustur(animeAdi, bolum, ekip);
+    yeniGorevSayisi++;
+    console.log(`[bolumTakip] YENİ GÖREV: ${animeAdi} - Bölüm ${bolum} (çevirmen: ${ekip.cevirmen})`);
 
     const duyuruKanal = client.channels.cache.get(process.env.YENI_BOLUM_KANAL_ID);
     if (duyuruKanal) {
@@ -67,6 +75,8 @@ async function kontrolEt(client) {
       console.error('Duyuru kanalı bulunamadı, YENI_BOLUM_KANAL_ID doğru mu kontrol et.');
     }
   }
+
+  console.log(`[bolumTakip] Kontrol tamamlandı, ${yeniGorevSayisi} yeni görev bulundu.`);
 }
 
 // Botu başlatan yerden çağrılacak fonksiyon

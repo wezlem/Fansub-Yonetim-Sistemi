@@ -48,6 +48,7 @@ module.exports = {
     });
 
     const durum = mevcutEkip ? 'güncellendi' : 'kaydedildi';
+    console.log(`[gorev] Ekip ${durum}: ${animeAdi} (${interaction.user.tag} tarafından) — çevirmen: ${cevirmen.tag}, redaktör: ${redaktor.tag}, encode&upload: ${encodeUpload.tag}`);
 
     await interaction.reply({
       content:

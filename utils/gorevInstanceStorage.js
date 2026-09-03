@@ -70,10 +70,19 @@ function gorevIdIleBul(id) {
 function gorevGuncelle(id, degisiklik) {
   const ornekler = orneklerOku();
   const index = ornekler.findIndex(g => g.id === id);
-  if (index === -1) return null;
+  if (index === -1) {
+    console.log(`[gorevInstanceStorage] gorevGuncelle: id bulunamadı (${id})`);
+    return null;
+  }
 
-  ornekler[index] = { ...ornekler[index], ...degisiklik };
+  const eskiGorev = ornekler[index];
+  ornekler[index] = { ...eskiGorev, ...degisiklik };
   orneklerKaydet(ornekler);
+
+  if (degisiklik.asama) {
+    console.log(`[gorevInstanceStorage] Aşama değişti: ${eskiGorev.animeAdi} - Bölüm ${eskiGorev.bolum} (${eskiGorev.asama} → ${degisiklik.asama})`);
+  }
+
   return ornekler[index];
 }
 

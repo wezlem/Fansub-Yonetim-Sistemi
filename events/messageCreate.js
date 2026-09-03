@@ -21,6 +21,7 @@ module.exports = {
 
     // Durum 1a: dosyanın içindeki "Video File:" satırı beklenen formatta değil
     if (!sonuc) {
+      console.log(`[messageCreate] Format tanınmadı: ${assDosyasi.name} (kanal: ${message.channel.id}, gönderen: ${message.author.tag})`);
       await gorevSecimiSun(message, asamaAyari);
       return;
     }
@@ -33,6 +34,7 @@ module.exports = {
 
       if (ayniAnimeGorevleri.length > 0) {
         const beklenenBolumler = ayniAnimeGorevleri.map(g => g.bolum).join(', ');
+        console.log(`[messageCreate] Bölüm uyuşmadı: ${sonuc.animeAdi} - Bölüm ${sonuc.bolum} (beklenen: ${beklenenBolumler})`);
         await message.reply(
           `❌ **${sonuc.animeAdi}** tanındı ama Bölüm ${sonuc.bolum} için sistemde bir görev yok. Beklenen bölüm(ler): ${beklenenBolumler}`,
         );
@@ -40,18 +42,21 @@ module.exports = {
       }
 
       // Anime de sistemde hiç tanımlı değil → eski dropdown akışı
+      console.log(`[messageCreate] Anime sistemde kayıtlı değil: ${sonuc.animeAdi}`);
       await gorevSecimiSun(message, asamaAyari);
       return;
     }
 
     // Durum 2: görev var ama bu kanalın beklediği aşamada değil (eski/yanlış dosya)
     if (gorev.asama !== asamaAyari.mevcutAsama) {
+      console.log(`[messageCreate] Yanlış aşama: ${gorev.animeAdi} - Bölüm ${gorev.bolum} (görev aşaması: ${gorev.asama}, beklenen: ${asamaAyari.mevcutAsama})`);
       await message.reply('❌ Doğru dosya atılmadı.');
       return;
     }
 
     // Durum 3: aşama doğru ama dosyayı atan kişi bu aşamanın sorumlusu değil
     if (gorev[asamaAyari.sorumluAlan] !== message.author.id) {
+      console.log(`[messageCreate] Yanlış kişi: ${gorev.animeAdi} - Bölüm ${gorev.bolum} (gönderen: ${message.author.tag}, beklenen: ${gorev[asamaAyari.sorumluAlan]})`);
       await message.reply('❌ Bu görev sana atanmamış.');
       return;
     }

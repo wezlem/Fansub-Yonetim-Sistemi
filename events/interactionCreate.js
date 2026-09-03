@@ -1,4 +1,3 @@
-
 const { extractMalId, getAnimeInfo } = require('../utils/mal');
 const { parseReleaseLinks } = require('../utils/parseLinks');
 const { buildEpisodeEmbed, buildLinkButtons } = require('../utils/embed');
@@ -81,6 +80,7 @@ if (roleNameInput) {
             // Görev takibini kapatmayı dene (encode aşamasındaki eşleşen görevi bul)
       const { encodeGorevleriniAra, gorevGuncelle } = require('../utils/gorevInstanceStorage');
       const eslesenler = encodeGorevleriniAra(animeInfo.title, parseInt(episode, 10));
+      console.log(`[interactionCreate] /episode: "${animeInfo.title}" Bölüm ${episode} için ${eslesenler.length} görev eşleşmesi bulundu`);
 
       if (eslesenler.length === 1) {
         gorevGuncelle(eslesenler[0].id, { asama: 'tamamlandi' });
