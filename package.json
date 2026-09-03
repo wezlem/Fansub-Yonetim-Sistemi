@@ -1,0 +1,14 @@
+{
+  "name": "umisubs-bot",
+  "version": "1.0.0",
+  "description": "Umisubs Discord bildirim botu",
+  "main": "index.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "discord.js": "^14.14.1",
+    "dotenv": "^16.4.5"
+  }
+}
