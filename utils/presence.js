@@ -4,7 +4,7 @@ function setPresence(client) {
   client.user.setPresence({
     activities: [
       {
-        name: 'Fansub',
+        name: 'wezlem /help',
         type: ActivityType.Watching,
       },
     ],

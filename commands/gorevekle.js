@@ -3,7 +3,7 @@ const { ekipKaydet, ekipGetir } = require('../utils/gorevStorage');
 
 module.exports = {
   data: new SlashCommandBuilder()
-    .setName('gorev')
+    .setName('gorevekle')
     .setDescription('Bir anime için ekip tanımla (çevirmen, redaktör, encode&upload)')
     .addStringOption(option =>
       option.setName('anime')
@@ -48,7 +48,7 @@ module.exports = {
     });
 
     const durum = mevcutEkip ? 'güncellendi' : 'kaydedildi';
-    console.log(`[gorev] Ekip ${durum}: ${animeAdi} (${interaction.user.tag} tarafından) — çevirmen: ${cevirmen.tag}, redaktör: ${redaktor.tag}, encode&upload: ${encodeUpload.tag}`);
+    console.log(`[gorevekle] Ekip ${durum}: ${animeAdi} (${interaction.user.tag} tarafından) — çevirmen: ${cevirmen.tag}, redaktör: ${redaktor.tag}, encode&upload: ${encodeUpload.tag}`);
 
     await interaction.reply({
       content:
