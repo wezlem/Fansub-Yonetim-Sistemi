@@ -83,7 +83,7 @@ tanınıyor). Bu yüzden anime adının
 ## Klasör yapısı
 
 ```
-commands/ — Slash komutları (/gorev, /episode, /gorevbitir)
+commands/ — Slash komutları (/gorevekle, /episode, /gorevbitir)
 events/ — Discord olaylarına tepki veren kodlar (mesaj geldiğinde, buton tıklandığında vb.)
 services/ — Arka planda çalışan sürekli işler (bölüm kontrol döngüsü)
 utils/ — Ortak yardımcı fonksiyonlar (dosya okuma, veri saklama, API çağrıları)
