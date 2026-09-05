@@ -1,3 +1,8 @@
+//episodekomuduembedi
+
+
+
+
 
 const { EmbedBuilder, ActionRowBuilder, ButtonBuilder, ButtonStyle } = require('discord.js');
 
@@ -63,4 +68,41 @@ function buildLinkButtons(releaseLinks) {
   return row;
 }
 
-module.exports = { buildEpisodeEmbed, buildLinkButtons };
+
+
+
+
+//gorvbildirimi
+
+
+
+
+const ASAMA_LABELS = {
+  ceviri: { label: 'Çeviri', kisiAlani: 'cevirmen' },
+  redakte: { label: 'Redakte', kisiAlani: 'redaktor' },
+  encode: { label: 'Encode & Upload', kisiAlani: 'encodeUpload' },
+};
+
+function buildAktifGorevlerEmbed(gorevler) {
+  const embed = new EmbedBuilder()
+    .setColor(0x2f5d9f)
+    .setTitle('📋 Aktif Görevler')
+    .setTimestamp();
+
+  if (gorevler.length === 0) {
+    embed.setDescription('Şu an bekleyen görev yok 🎉');
+    return embed;
+  }
+
+  const satirlar = gorevler.map(g => {
+    const asamaBilgi = ASAMA_LABELS[g.asama] || { label: g.asama, kisiAlani: null };
+    const sorumluId = asamaBilgi.kisiAlani ? g[asamaBilgi.kisiAlani] : null;
+    const sorumluMetni = sorumluId ? `<@${sorumluId}>` : 'atanmamış';
+    return `*${g.animeAdi} - Bölüm ${g.bolum}*\nAşama: **${asamaBilgi.label}** (${sorumluMetni})`;
+  });
+
+  embed.setDescription(satirlar.join('\n\n'));
+  return embed;
+}
+
+module.exports = { buildEpisodeEmbed, buildLinkButtons, buildAktifGorevlerEmbed };

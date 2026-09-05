@@ -1,10 +1,12 @@
-
 const { SlashCommandBuilder, ModalBuilder, TextInputBuilder, TextInputStyle, ActionRowBuilder, PermissionFlagsBits } = require('discord.js');
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName('episode')
-    .setDescription('Yeni bölüm bildirimi gönder'),
+    .setDescription('Yeni bölüm bildirimi gönder')
+    .addRoleOption((option) =>
+      option.setName('rol').setDescription('Bildirimde etiketlenecek rol (opsiyonel)').setRequired(false)
+    ),
 
   async execute(interaction) {
 
@@ -17,9 +19,11 @@ if (!isAdmin) {
   });
 }
 
+    const secilenRol = interaction.options.getRole('rol');
+    const rolIdParcasi = secilenRol ? secilenRol.id : 'none';
 
     const modal = new ModalBuilder()
-      .setCustomId('episodeModal')
+      .setCustomId(`episodeModal_${rolIdParcasi}`)
       .setTitle('Yeni Bölüm Bildirimi');
 
 
@@ -55,20 +59,11 @@ if (!isAdmin) {
       .setRequired(true);
 
 
-    const roleInput = new TextInputBuilder()
-  .setCustomId('roleMention')
-  .setLabel('Rol Mention (opsiyonel, sadece rol adı)')
-  .setStyle(TextInputStyle.Short)
-  .setPlaceholder('Güncel Bölüm...')
-  .setRequired(false);
-
-
     modal.addComponents(
       new ActionRowBuilder().addComponents(malLinkInput),
       new ActionRowBuilder().addComponents(seasonInput),
       new ActionRowBuilder().addComponents(episodeInput),
       new ActionRowBuilder().addComponents(linksInput),
-      new ActionRowBuilder().addComponents(roleInput),
     );
 
 

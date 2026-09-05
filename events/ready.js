@@ -1,5 +1,6 @@
 const { setPresence } = require('../utils/presence');
 const { bolumTakibiBaslat } = require('../services/bolumTakip');
+const { aktifGorevBildirimBaslat } = require('../services/aktifGorevBildirim');
 
 module.exports = {
   name: 'clientReady',
@@ -19,5 +20,6 @@ module.exports = {
 
     setPresence(client);
     bolumTakibiBaslat(client);
+    aktifGorevBildirimBaslat(client);
   },
 };

@@ -19,32 +19,16 @@ module.exports = {
       return;
     }
 
-    if (interaction.isModalSubmit() && interaction.customId === 'episodeModal') {
-      await interaction.deferReply({ ephemeral: true });
+if (interaction.isModalSubmit() && interaction.customId.startsWith('episodeModal_')) {
+  await interaction.deferReply({ ephemeral: true });
 
+  const malLink = interaction.fields.getTextInputValue('malLink');
+  const season = interaction.fields.getTextInputValue('season');
+  const episode = interaction.fields.getTextInputValue('episode');
+  const releaseLinksRaw = interaction.fields.getTextInputValue('releaseLinks');
 
-      const malLink = interaction.fields.getTextInputValue('malLink');
-      const season = interaction.fields.getTextInputValue('season');
-      const episode = interaction.fields.getTextInputValue('episode');
-      const releaseLinksRaw = interaction.fields.getTextInputValue('releaseLinks');
-      const roleNameInput = interaction.fields.getTextInputValue('roleMention');
-let roleMention = null;
-
-if (roleNameInput) {
-
-  const matchedRole = interaction.guild.roles.cache.find(
-    (role) => role.name.toLowerCase() === roleNameInput.toLowerCase(),
-  );
-
-  if (matchedRole) {
-    roleMention = `<@&${matchedRole.id}>`;
-  } else {
-    await interaction.followUp({
-      content: `⚠️ "${roleNameInput}" adında bir rol bulunamadı, bildirim rol etiketlemeden gönderildi.`,
-      ephemeral: true,
-    });
-  }
-}
+  const rolId = interaction.customId.split('_')[1];
+  const roleMention = rolId && rolId !== 'none' ? `<@&${rolId}>` : null;
 
 
       const malId = extractMalId(malLink);

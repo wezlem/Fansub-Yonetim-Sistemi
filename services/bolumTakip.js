@@ -68,7 +68,7 @@ async function kontrolEt(client) {
         );
 
       duyuruKanal.send({
-        content: `📥 **${animeAdi}** - Bölüm ${bolum} çıktı! <@${ekip.cevirmen}> çeviri senin görevin.`,
+        content: `📥 **${animeAdi} - Bölüm ${bolum}** çıktı!\n<@${ekip.cevirmen}> çeviri senin görevin.`,
         embeds: [embed],
       });
     } else {

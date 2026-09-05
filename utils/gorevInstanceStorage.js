@@ -95,17 +95,32 @@ function acikGorevleriGetir(asama) {
 
 // "encode" aşamasındaki görevler arasında bölüm numarası eşleşen ve
 // isim olarak benzeyen görevleri bulur (gevşek eşleştirme)
+function sezonEkiniKirp(isim) {
+  return isim
+    .replace(/\s+s\d+$/i, '')                      // "... S2" -> "..."
+    .replace(/\s+\d+(st|nd|rd|th)\s+season$/i, '')  // "... 2nd Season" -> "..."
+    .replace(/\s+season\s+\d+$/i, '')               // "... Season 2" -> "..."
+    .trim();
+}
+
 function encodeGorevleriniAra(animeBaslik, bolum) {
   const ornekler = orneklerOku();
-  const baslikKucuk = animeBaslik.toLowerCase();
+  const baslikKucuk = sezonEkiniKirp(animeBaslik.toLowerCase());
 
   return ornekler.filter(g => {
     if (g.asama !== 'encode') return false;
     if (g.bolum !== bolum) return false;
 
-    const gorevAdiKucuk = g.animeAdi.toLowerCase();
+    const gorevAdiKucuk = sezonEkiniKirp(g.animeAdi.toLowerCase());
     return gorevAdiKucuk.includes(baslikKucuk) || baslikKucuk.includes(gorevAdiKucuk);
   });
+}
+
+
+// tamamlandi dışındaki tüm görevleri getirir (aşama fark etmeksizin)
+function tumAktifGorevleriGetir() {
+  const ornekler = orneklerOku();
+  return ornekler.filter(g => g.asama !== 'tamamlandi');
 }
 
 module.exports = {
@@ -119,4 +134,5 @@ module.exports = {
   gorevGuncelle,
   acikGorevleriGetir,
   encodeGorevleriniAra,
+  tumAktifGorevleriGetir
 };
